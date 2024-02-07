@@ -23,6 +23,8 @@ const Button = ({
   varient = "fill",
   size = "md",
   onClick,
+  bg,
+  color,
   ...extraprops
 }) => {
   let Component = as ?? defaultElement;
@@ -30,7 +32,8 @@ const Button = ({
     <Component
       onClick={onClick}
       {...extraprops}
-      className={`${defaultStyles} ${sizes[size]} ${varients[varient]} ${className}`}
+      style={{ backgroundColor: bg, color: color }}
+      className={`${defaultStyles} ${sizes[size]} ${varients[varient]}  ${className}`}
     >
       {leftIcon != null ? <span>{leftIcon}</span> : null}
       {children}

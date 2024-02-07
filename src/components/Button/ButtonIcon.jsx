@@ -13,13 +13,16 @@ const sizes = {
   md: "h-12 w-12",
   lg: "h-14 w-14",
 };
-let defaultElement = "button";
+
+const defaultElement = "button";
 
 const ButtonIcon = ({
   as,
   icon,
   varient = "fill",
   className = "",
+  bg,
+  color,
   size = "md",
   onClick,
   ...extraprops
@@ -27,7 +30,8 @@ const ButtonIcon = ({
   let Component = as ?? defaultElement;
   return (
     <Component
-      className={`${defaultStyles} ${sizes[size]} ${varients[varient]} ${className}`}
+      className={`${defaultStyles} ${sizes[size]} ${varients[varient]} ${className} `}
+      style={{ backgroundColor: bg, color: color }}
       onClick={onClick}
       {...extraprops}
     >

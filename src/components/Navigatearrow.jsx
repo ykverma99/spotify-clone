@@ -7,13 +7,14 @@ const Navigatearrow = () => {
   return (
     <div className="inline-flex items-center gap-2 text-white">
       <ButtonIcon
-        className="bg-gray-950"
+        bg={"rgb(0,0,0,0.7)"}
         size="sm"
         icon={<MdKeyboardArrowLeft size={30} />}
         onClick={() => setpageShift(true)}
       />
       <ButtonIcon
-        className={`bg-gray-950 ${pageShift ? "cursor-pointer" : "cursor-not-allowed bg-opacity-50"}`}
+        bg={`${pageShift ? "rgba(0,0,0,0.7)" : "rgba(0,0,0,0.4)"}`}
+        className={`${pageShift ? "cursor-pointer" : "cursor-not-allowed"}`}
         size="sm"
         icon={<MdKeyboardArrowRight size={30} />}
         disabled={pageShift ? false : true}

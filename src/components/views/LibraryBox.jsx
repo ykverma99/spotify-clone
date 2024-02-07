@@ -22,7 +22,7 @@ const LibraryBox = () => {
         </div>
       </div>
       {/* playlist button */}
-      <Button className={"bg-gray-700 bg-opacity-50"} size="sm" varient="fill">
+      <Button size="sm" varient="fill" bg={"rgba(156,163,175,0.2)"}>
         Playlist
       </Button>
       {/* option for searching in library */}

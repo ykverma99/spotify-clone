@@ -1,6 +1,8 @@
+import PlaylistCard from "./components/PlaylistCard/PlaylistCard";
 import Header from "./components/views/Header";
 import LibraryBox from "./components/views/LibraryBox";
 import PageLinkBox from "./components/views/PageLinkBox";
+import headphonePic from "./assets/headphones.jpg";
 
 function App() {
   return (
@@ -17,6 +19,14 @@ function App() {
       {/* main section in which all the content is passed down */}
       <main className="col-start-2 col-end-6  row-span-7 overflow-y-auto rounded-lg bg-gray-600 bg-opacity-30">
         <Header />
+        <div className="flex flex-wrap items-center justify-center gap-3 p-5">
+          <PlaylistCard text={"Liked Songs"} src={headphonePic} />
+          <PlaylistCard text={"Liked Songs"} src={headphonePic} />
+          <PlaylistCard text={"Liked Songs"} src={headphonePic} />
+          <PlaylistCard text={"Liked Songs"} src={headphonePic} />
+          <PlaylistCard text={"Liked Songs"} src={headphonePic} />
+          <PlaylistCard text={"Liked Songs"} src={headphonePic} />
+        </div>
       </main>
 
       {/* this is the right sidebar and this will only open when a song is playing and we want
