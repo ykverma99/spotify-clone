@@ -1,8 +1,11 @@
-import PlaylistCard from "./components/PlaylistCard/PlaylistCard";
+import SuggestsCards from "./components/SuggestCards/SuggestsCards";
 import Header from "./components/views/Header";
 import LibraryBox from "./components/views/LibraryBox";
 import PageLinkBox from "./components/views/PageLinkBox";
-import headphonePic from "./assets/headphones.jpg";
+import headphones from "./assets/headphones.jpg";
+import singer from "./assets/singer.jpg";
+import CardViews from "./components/views/CardViews";
+import PlaylistCard from "./components/PlaylistCard/PlaylistCard";
 
 function App() {
   return (
@@ -19,14 +22,160 @@ function App() {
       {/* main section in which all the content is passed down */}
       <main className="col-start-2 col-end-6  row-span-7 overflow-y-auto rounded-lg bg-gray-600 bg-opacity-30">
         <Header />
-        <div className="flex flex-wrap items-center justify-center gap-3 p-5">
-          <PlaylistCard text={"Liked Songs"} src={headphonePic} />
-          <PlaylistCard text={"Liked Songs"} src={headphonePic} />
-          <PlaylistCard text={"Liked Songs"} src={headphonePic} />
-          <PlaylistCard text={"Liked Songs"} src={headphonePic} />
-          <PlaylistCard text={"Liked Songs"} src={headphonePic} />
-          <PlaylistCard text={"Liked Songs"} src={headphonePic} />
-        </div>
+        {/* <PlaylistComponent /> */}
+        <CardViews heading={"Good Evening"}>
+          <PlaylistCard text={"Liked Songs"} src={headphones} />
+          <PlaylistCard text={"Liked Songs"} src={singer} />
+          <PlaylistCard text={"Liked Songs"} src={headphones} />
+          <PlaylistCard text={"Liked Songs"} src={singer} />
+          <PlaylistCard text={"Liked Songs"} src={headphones} />
+          <PlaylistCard text={"Liked Songs"} src={singer} />
+        </CardViews>
+
+        <CardViews
+          justify={"justify-start"}
+          gap={"gap-6"}
+          heading={"Made for username"}
+        >
+          <SuggestsCards
+            src={singer}
+            title={"Daily Mix 1"}
+            desc={"Prabh Gill, Simar Dorraha. Harnoor an..."}
+          />
+          <SuggestsCards
+            src={headphones}
+            title={"Daily Mix 1"}
+            desc={"Prabh Gill, Simar Dorraha. Harnoor an..."}
+          />
+          <SuggestsCards
+            src={singer}
+            title={"Daily Mix 1"}
+            desc={"Prabh Gill, Simar Dorraha. Harnoor an..."}
+          />
+          <SuggestsCards
+            src={headphones}
+            title={"Daily Mix 1"}
+            desc={"Prabh Gill, Simar Dorraha. Harnoor an..."}
+          />
+          <SuggestsCards
+            src={singer}
+            title={"Daily Mix 1"}
+            desc={"Prabh Gill, Simar Dorraha. Harnoor an..."}
+          />
+          <SuggestsCards
+            src={headphones}
+            title={"Daily Mix 1"}
+            desc={"Prabh Gill, Simar Dorraha. Harnoor an..."}
+          />
+        </CardViews>
+        <CardViews
+          justify={"justify-start"}
+          gap={"gap-6"}
+          heading={"Made for username"}
+        >
+          <SuggestsCards
+            src={singer}
+            title={"Daily Mix 1"}
+            desc={"Prabh Gill, Simar Dorraha. Harnoor an..."}
+          />
+          <SuggestsCards
+            src={headphones}
+            title={"Daily Mix 1"}
+            desc={"Prabh Gill, Simar Dorraha. Harnoor an..."}
+          />
+          <SuggestsCards
+            src={singer}
+            title={"Daily Mix 1"}
+            desc={"Prabh Gill, Simar Dorraha. Harnoor an..."}
+          />
+          <SuggestsCards
+            src={headphones}
+            title={"Daily Mix 1"}
+            desc={"Prabh Gill, Simar Dorraha. Harnoor an..."}
+          />
+          <SuggestsCards
+            src={singer}
+            title={"Daily Mix 1"}
+            desc={"Prabh Gill, Simar Dorraha. Harnoor an..."}
+          />
+          <SuggestsCards
+            src={headphones}
+            title={"Daily Mix 1"}
+            desc={"Prabh Gill, Simar Dorraha. Harnoor an..."}
+          />
+        </CardViews>
+        <CardViews
+          justify={"justify-start"}
+          gap={"gap-6"}
+          heading={"Made for username"}
+        >
+          <SuggestsCards
+            src={singer}
+            title={"Daily Mix 1"}
+            desc={"Prabh Gill, Simar Dorraha. Harnoor an..."}
+          />
+          <SuggestsCards
+            src={headphones}
+            title={"Daily Mix 1"}
+            desc={"Prabh Gill, Simar Dorraha. Harnoor an..."}
+          />
+          <SuggestsCards
+            src={singer}
+            title={"Daily Mix 1"}
+            desc={"Prabh Gill, Simar Dorraha. Harnoor an..."}
+          />
+          <SuggestsCards
+            src={headphones}
+            title={"Daily Mix 1"}
+            desc={"Prabh Gill, Simar Dorraha. Harnoor an..."}
+          />
+          <SuggestsCards
+            src={singer}
+            title={"Daily Mix 1"}
+            desc={"Prabh Gill, Simar Dorraha. Harnoor an..."}
+          />
+          <SuggestsCards
+            src={headphones}
+            title={"Daily Mix 1"}
+            desc={"Prabh Gill, Simar Dorraha. Harnoor an..."}
+          />
+        </CardViews>
+        <CardViews
+          justify={"justify-start"}
+          gap={"gap-6"}
+          heading={"Made for username"}
+        >
+          <SuggestsCards
+            src={singer}
+            title={"Daily Mix 1"}
+            desc={"Prabh Gill, Simar Dorraha. Harnoor an..."}
+          />
+          <SuggestsCards
+            src={headphones}
+            title={"Daily Mix 1"}
+            desc={"Prabh Gill, Simar Dorraha. Harnoor an..."}
+          />
+          <SuggestsCards
+            src={singer}
+            title={"Daily Mix 1"}
+            desc={"Prabh Gill, Simar Dorraha. Harnoor an..."}
+          />
+          <SuggestsCards
+            src={headphones}
+            title={"Daily Mix 1"}
+            desc={"Prabh Gill, Simar Dorraha. Harnoor an..."}
+          />
+          <SuggestsCards
+            src={singer}
+            title={"Daily Mix 1"}
+            desc={"Prabh Gill, Simar Dorraha. Harnoor an..."}
+          />
+          <SuggestsCards
+            src={headphones}
+            title={"Daily Mix 1"}
+            desc={"Prabh Gill, Simar Dorraha. Harnoor an..."}
+          />
+        </CardViews>
       </main>
 
       {/* this is the right sidebar and this will only open when a song is playing and we want

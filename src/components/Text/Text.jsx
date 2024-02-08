@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 
 const defaultStyles =
-  "flex items-center gap-4 text-lg hover:text-white transition-all duration-300 ease-in";
+  "flex items-center gap-4  hover:text-white transition-all duration-300 ease-in";
 
 const varients = {
   hoverline: "hover:underline underline-offset-2",
@@ -24,7 +24,7 @@ const Text = ({
   let Component = as ?? defaultElement;
   return (
     <Component
-      className={`${defaultStyles} w-fit  ${varients[varient]} ${className}`}
+      className={`${defaultStyles} w-fit text-lg ${varients[varient]} ${className}`}
       onClick={onClick}
       {...extraprops}
     >
