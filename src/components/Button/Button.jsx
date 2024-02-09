@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 const defaultStyles =
-  "inline-flex items-center gap-3 rounded-full hover:brightness-[.96] hover:scale-[1.02]  active:-translate-y-0.5 ";
+  "inline-flex items-center justify-center gap-3 rounded-full hover:brightness-[.96] hover:scale-[1.02]  active:-translate-y-0.5 ";
 
 const varients = {
   fill: "bg-green-500 font-semibold text-white border-0",

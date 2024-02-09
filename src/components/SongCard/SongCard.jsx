@@ -11,7 +11,7 @@ const SongCard = ({
   return (
     <div
       {...extraprops}
-      className={`ease my-3 flex cursor-pointer items-center gap-3 rounded-md p-1 transition-all delay-75  duration-300 ease-in ${isHover ? "hover:bg-gray-600 hover:bg-opacity-40 " : ""}`}
+      className={`ease my-3 flex cursor-pointer items-center gap-3 rounded-md p-1 transition-all  duration-200 ease-in ${isHover ? "hover:bg-gray-600 hover:bg-opacity-40 " : ""}`}
     >
       <div className="h-14 w-14 rounded-md bg-gray-50">
         <img

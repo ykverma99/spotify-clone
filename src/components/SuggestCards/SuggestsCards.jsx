@@ -1,21 +1,12 @@
-import { useState } from "react";
+// import { useState } from "react";
 import ButtonIcon from "../Button/ButtonIcon";
 import { IoPlay } from "react-icons/io5";
 
 /* eslint-disable react/prop-types */
 const SuggestsCards = ({ src, title, desc }) => {
-  const [mouseHover, setmouseHover] = useState(false);
-  function handleMouseEnter() {
-    setmouseHover(true);
-  }
-  function handleMouseLeave() {
-    setmouseHover(false);
-  }
   return (
     <div
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      className={`flex h-72 w-52 cursor-pointer flex-col items-center gap-3 rounded-md p-3 backdrop-blur ${mouseHover ? "bg-white/15" : " bg-white/5"}`}
+      className={`group flex h-72 w-52 cursor-pointer flex-col items-center gap-3 rounded-md bg-white/5 p-3 backdrop-blur hover:bg-white/15`}
     >
       <div className="relative h-3/4 w-full rounded-md ">
         <img
@@ -24,7 +15,7 @@ const SuggestsCards = ({ src, title, desc }) => {
           className="h-full w-full rounded-md object-cover shadow-lg shadow-black"
         />
         <div
-          className={`ease absolute right-2 transition-all delay-150 duration-200 ease-in ${mouseHover ? "visible bottom-2 " : "invisible bottom-0"}`}
+          className={`ease invisible absolute bottom-0 right-2 transition-all duration-200 ease-in group-hover:visible group-hover:bottom-2`}
         >
           <ButtonIcon
             icon={<IoPlay color="black" size={25} />}
