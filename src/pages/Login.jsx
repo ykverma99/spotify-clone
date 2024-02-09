@@ -30,9 +30,11 @@ const Login = () => {
           </Button>
         </div>
         {/* hr tag */}
-        <div className="flex justify-center ">
-          <hr className="h-px w-[35rem] border-0 bg-gray-600" />
-        </div>{" "}
+        <div className="flex items-center justify-center gap-2 ">
+          <hr className="h-px w-60 border-0 bg-gray-600" />
+          <p className="text-gray-400">or</p>
+          <hr className="h-px w-60 border-0 bg-gray-600" />
+        </div>
         <form className="flex  flex-col items-center gap-4 space-y-3">
           <Input
             label={"Email or username"}
@@ -60,8 +62,11 @@ const Login = () => {
         </div>
         <div className="flex items-center justify-center gap-2">
           <p className="text-gray-400">Don't have an account?</p>
-          <Link to={"/signup"} className="underline underline-offset-2">
-            Sign up for Spotify
+          <Link
+            to={"/signup"}
+            className="underline underline-offset-2 hover:text-green-500"
+          >
+            Sign up for Spotify.
           </Link>
         </div>
       </div>
