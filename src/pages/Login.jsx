@@ -4,8 +4,26 @@ import { FcGoogle } from "react-icons/fc";
 import { BiLogoFacebookCircle } from "react-icons/bi";
 import Input from "../components/Input/Input";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { CgSpinnerTwo } from "react-icons/cg";
 
 const Login = () => {
+  const [details, setDetails] = useState({
+    email: "",
+    password: "",
+  });
+  const [status, setstatus] = useState("typing");
+  function handleInput(e) {
+    setDetails((prev) => {
+      return { ...prev, [e.target.name]: e.target.value };
+    });
+  }
+  const handleForm = async (e) => {
+    e.preventDefault();
+    setstatus("processing");
+    console.log(details);
+    // setstatus("sucess");
+  };
   return (
     <div className="flex h-screen items-center justify-center bg-gradient-to-tr from-zinc-950 via-zinc-900 to-zinc-700 text-white">
       <div className="flex h-[90vh] w-1/3 flex-col justify-center space-y-10 rounded-lg bg-zinc-800 shadow">
@@ -35,19 +53,34 @@ const Login = () => {
           <p className="text-gray-400">or</p>
           <hr className="h-px w-60 border-0 bg-gray-600" />
         </div>
-        <form className="flex  flex-col items-center gap-4 space-y-3">
+        <form
+          onSubmit={handleForm}
+          className="flex  flex-col items-center gap-4 space-y-3"
+        >
           <Input
             label={"Email or username"}
             labelFor={"email"}
             placeholder={"Email or username"}
+            onChange={handleInput}
           />
           <Input
             label={"Password"}
             labelFor={"password"}
             placeholder={"Password"}
             text={"password"}
+            onChange={handleInput}
           />
-          <Button className="w-96">Log In</Button>
+          {status === "processing" ? (
+            <Button
+              leftIcon={<CgSpinnerTwo size={25} className="animate-spin" />}
+              className="w-96 opacity-70 active:translate-y-0"
+              disabled={true}
+            >
+              {status}...
+            </Button>
+          ) : (
+            <Button className="w-96">Sign Up</Button>
+          )}{" "}
           <Button
             as={"a"}
             varient="flat"

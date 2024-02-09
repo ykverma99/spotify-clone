@@ -71,7 +71,7 @@ const Signup = () => {
               {status}...
             </Button>
           ) : (
-            <Button className="w-96">Log In</Button>
+            <Button className="w-96">Sign Up</Button>
           )}
           <Button
             as={"a"}
