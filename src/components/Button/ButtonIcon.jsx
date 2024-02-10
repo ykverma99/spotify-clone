@@ -9,6 +9,7 @@ const varients = {
   flat: " border-0 p-0 md:px-0",
 };
 const sizes = {
+  xs: "h-6 w-6",
   sm: "h-9 w-9",
   md: "h-12 w-12",
   lg: "h-14 w-14",
