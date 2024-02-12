@@ -1,11 +1,12 @@
+import { Link } from "react-router-dom";
 import ButtonIcon from "../Button/ButtonIcon";
 import { IoPlay } from "react-icons/io5";
 // import { IoPause } from "react-icons/io5";
 
 /* eslint-disable react/prop-types */
-const PlaylistCard = ({ src, text }) => {
+const PlaylistCard = ({ src, text, href }) => {
   return (
-    <div className="flex items-center  text-white">
+    <Link to={href} className="flex items-center  text-white">
       <div className="h-[4.5rem] w-[4.5rem] rounded-l-md bg-gray-50">
         <img
           className="h-full w-full rounded-l-md object-cover"
@@ -17,7 +18,7 @@ const PlaylistCard = ({ src, text }) => {
         <p className="font-semibold capitalize">{text}</p>
         <ButtonIcon icon={<IoPlay size={25} />} />
       </div>
-    </div>
+    </Link>
   );
 };
 

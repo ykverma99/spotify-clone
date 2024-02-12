@@ -6,9 +6,27 @@ import LibraryBox from "../components/views/LibraryBox";
 import PageLinkBox from "../components/views/PageLinkBox";
 import headphones from "../assets/headphones.jpg";
 import singer from "../assets/singer.jpg";
+import { useEffect, useRef, useState } from "react";
 
 const Home = () => {
   const arr = new Array(6).fill("");
+
+  const [navBg, setNavBg] = useState(false);
+  const mainRef = useRef(null);
+
+  useEffect(() => {
+    const main = mainRef.current;
+    const onScroll = () => {
+      if (main.scrollTop >= 50) {
+        setNavBg(true);
+      } else {
+        setNavBg(false);
+      }
+    };
+    main.addEventListener("scroll", onScroll);
+    return () => main.removeEventListener("scroll", onScroll);
+  }, []);
+  const color = Math.random().toString(16).slice(-6);
   return (
     <div className="grid h-screen grid-cols-5 grid-rows-8 gap-3 overflow-y-hidden bg-black px-5 pt-5">
       {/* in this sidebar we show theour playlists */}
@@ -21,13 +39,17 @@ const Home = () => {
       </aside>
 
       {/* main section in which all the content is passed down */}
-      <main className="col-start-2 col-end-6  row-span-7 overflow-y-auto rounded-lg bg-gray-600 bg-opacity-30">
-        <Header />
+      <main
+        ref={mainRef}
+        className="col-start-2 col-end-6  row-span-7 overflow-y-auto rounded-lg bg-gray-600 bg-opacity-30"
+      >
+        <Header bg={navBg && color} />
         {/* <PlaylistComponent /> */}
         <CardViews heading={"Good Evening"}>
           {arr.map((_, i) => {
             return (
               <PlaylistCard
+                href={"/playlist"}
                 text={"Liked Songs"}
                 src={i % 2 == 0 ? singer : headphones}
                 key={i}
