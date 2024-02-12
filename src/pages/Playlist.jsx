@@ -2,26 +2,10 @@ import HeaderPlaylist from "../components/PlaylistCard/HeaderPlaylist";
 import Header from "../components/views/Header";
 import LibraryBox from "../components/views/LibraryBox";
 import PageLinkBox from "../components/views/PageLinkBox";
-import { useEffect, useRef, useState } from "react";
 import TablePlaylist from "../components/views/TablePlaylist";
 
 const Playlist = () => {
-  const [navBg, setNavBg] = useState(false);
-  const mainRef = useRef(null);
-
-  useEffect(() => {
-    const main = mainRef.current;
-    const onScroll = () => {
-      if (main.scrollTop >= 50) {
-        setNavBg(true);
-      } else {
-        setNavBg(false);
-      }
-    };
-    main.addEventListener("scroll", onScroll);
-    return () => main.removeEventListener("scroll", onScroll);
-  }, []);
-  const color = "ef4444";
+  const color = Math.random().toString().slice(-6);
   return (
     <div className="grid h-screen grid-cols-5 grid-rows-8 gap-3 overflow-y-hidden bg-black px-5 pt-5">
       {/* in this sidebar we show theour playlists */}
@@ -35,14 +19,11 @@ const Playlist = () => {
 
       {/* main section in which all the content is passed down */}
       <main
-        ref={mainRef}
-        className="col-start-2 col-end-6 row-span-7 overflow-y-auto rounded-lg bg-gray-600 bg-opacity-30"
+        className={`col-start-2 col-end-6 row-span-7 overflow-y-auto rounded-lg bg-opacity-30`}
+        style={{ background: `linear-gradient(to bottom,#${color},black 80%)` }}
       >
-        <Header bg={navBg && color} />
-        <div
-          className={`space-y-10 bg-gradient-to-t from-black to-red-500 p-5`}
-          // className="bg-[#]"
-        >
+        <Header isScroll={true} />
+        <div className={`space-y-10`}>
           <HeaderPlaylist />
           <TablePlaylist />
         </div>

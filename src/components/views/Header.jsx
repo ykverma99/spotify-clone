@@ -6,10 +6,10 @@ import { GoBell } from "react-icons/go";
 import { PiUsersThreeBold } from "react-icons/pi";
 import { FaRegUser } from "react-icons/fa";
 // style={{ margin: "0 2px", backgroundColor: "white", color: "black" }}
-const Header = ({ isInput, onChange, bg }) => {
+const Header = ({ isInput, onChange, bg, isScroll }) => {
   return (
     <header
-      className="sticky top-0 z-50 flex items-center justify-between p-4"
+      className={`${isScroll ? "static" : "sticky top-0 z-50"} flex items-center justify-between p-4`}
       style={{ backgroundColor: `#${bg}` }}
     >
       <Navigatearrow isInput={isInput} onChange={onChange} />
