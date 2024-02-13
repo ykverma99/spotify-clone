@@ -4,6 +4,7 @@ import Header from "../components/views/Header";
 import BeforeSearch from "../components/views/BeforeSearch";
 import AfterSearch from "../components/views/AfterSearch";
 import { useEffect, useRef, useState } from "react";
+import MusicControll from "../components/views/MusicControll";
 
 const Search = () => {
   const [inputValue, setinputValue] = useState("");
@@ -42,7 +43,7 @@ const Search = () => {
       {/* main section in which all the content is passed down */}
       <main
         ref={mainRef}
-        className="col-start-2  col-end-6 row-span-7 overflow-y-auto rounded-lg bg-gray-600 bg-opacity-30"
+        className="scrollbar-thumb-rounded-full scrollbar-thin scroll-track-rounded-full scrollbar-track-slate-900 scrollbar-thumb-slate-400 col-start-2  col-end-6 row-span-7 overflow-y-auto rounded-lg bg-gray-600 bg-opacity-30"
       >
         <Header
           bg={navBg && color}
@@ -54,7 +55,7 @@ const Search = () => {
       {/* this is the right sidebar and this will only open when a song is playing and we want
         to show the artist detail */}
       <aside className="col-start-1 col-end-6 rounded-lg  bg-gray-600 bg-opacity-30">
-        gasd
+        <MusicControll />
       </aside>
     </div>
   );

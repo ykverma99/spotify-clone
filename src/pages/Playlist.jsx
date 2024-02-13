@@ -1,6 +1,7 @@
 import HeaderPlaylist from "../components/PlaylistCard/HeaderPlaylist";
 import Header from "../components/views/Header";
 import LibraryBox from "../components/views/LibraryBox";
+import MusicControll from "../components/views/MusicControll";
 import PageLinkBox from "../components/views/PageLinkBox";
 import TablePlaylist from "../components/views/TablePlaylist";
 
@@ -19,7 +20,7 @@ const Playlist = () => {
 
       {/* main section in which all the content is passed down */}
       <main
-        className={`col-start-2 col-end-6 row-span-7 overflow-y-auto rounded-lg bg-opacity-30`}
+        className={`scrollbar-thumb-rounded-full scrollbar-thin scroll-track-rounded-full scrollbar-track-slate-900 scrollbar-thumb-slate-400  col-start-2 col-end-6 row-span-7 overflow-y-auto rounded-lg bg-opacity-30`}
         style={{ background: `linear-gradient(to bottom,#${color},black 80%)` }}
       >
         <Header isScroll={true} />
@@ -32,7 +33,7 @@ const Playlist = () => {
       {/* this is the right sidebar and this will only open when a song is playing and we want
         to show the artist detail */}
       <aside className="col-start-1 col-end-6 rounded-lg  bg-gray-600 bg-opacity-30">
-        gasd
+        <MusicControll />
       </aside>
     </div>
   );

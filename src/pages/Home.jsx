@@ -7,6 +7,7 @@ import PageLinkBox from "../components/views/PageLinkBox";
 import headphones from "../assets/headphones.jpg";
 import singer from "../assets/singer.jpg";
 import { useEffect, useRef, useState } from "react";
+import MusicControll from "../components/views/MusicControll";
 
 const Home = () => {
   const arr = new Array(6).fill("");
@@ -41,7 +42,7 @@ const Home = () => {
       {/* main section in which all the content is passed down */}
       <main
         ref={mainRef}
-        className="col-start-2 col-end-6  row-span-7 overflow-y-auto rounded-lg bg-gray-600 bg-opacity-30"
+        className="scrollbar-thumb-rounded-full scrollbar-thin scroll-track-rounded-full scrollbar-track-slate-900 scrollbar-thumb-slate-400 col-start-2 col-end-6  row-span-7 overflow-y-auto rounded-lg bg-gray-600 bg-opacity-30"
       >
         <Header bg={navBg && color} />
         {/* <PlaylistComponent /> */}
@@ -111,7 +112,7 @@ const Home = () => {
       {/* this is the right sidebar and this will only open when a song is playing and we want
         to show the artist detail */}
       <aside className="col-start-1 col-end-6 rounded-lg  bg-gray-600 bg-opacity-30">
-        gasd
+        <MusicControll />
       </aside>
     </div>
   );

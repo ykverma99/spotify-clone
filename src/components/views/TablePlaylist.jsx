@@ -6,10 +6,10 @@ import { CiClock2 } from "react-icons/ci";
 import Headphones from "../../assets/headphones.jpg";
 import TableBody from "../TableBody/TableBody";
 
-const arr = new Array(10).fill("");
+const arr = new Array(100).fill("");
 const TablePlaylist = () => {
   return (
-    <div className="min-h-[26rem] bg-black/40 p-5">
+    <div className="min-h-[26rem] bg-black/30 p-5">
       <div className="inline-flex items-center gap-3 pb-4">
         <ButtonIcon size="md" icon={<IoPlay size={25} color="black" />} />
         <ButtonIcon

@@ -5,7 +5,10 @@ import singer from "../../assets/singer.jpg";
 const HeaderPlaylist = () => {
   return (
     <div className="flex items-center gap-7 px-5 pt-5 text-white">
-      <div className="h-52 w-52 rounded shadow-lg shadow-black">
+      <div
+        className="h-52 w-52 rounded"
+        style={{ boxShadow: "0 0 16px 8px rgba(0,0,0,0.5)" }}
+      >
         <img
           className="h-full w-full rounded object-cover"
           src={headphones}
