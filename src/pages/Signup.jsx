@@ -4,8 +4,10 @@ import { FcGoogle } from "react-icons/fc";
 import { BiLogoFacebookCircle } from "react-icons/bi";
 import Input from "../components/Input/Input";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LuLoader2 } from "react-icons/lu";
+import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Signup = () => {
   const [details, setDetails] = useState({
@@ -15,16 +17,67 @@ const Signup = () => {
     birth: "",
   });
   const [status, setstatus] = useState("typing");
+  const { loginWithPopup, user, isAuthenticated } = useAuth0();
+
+  useEffect(() => {
+    const registerOrUpdateUser = async () => {
+      if (isAuthenticated) {
+        try {
+          const res = await axios.post("http://localhost:8080/register", {
+            email: user.email,
+            name: user.name,
+            password: user.sub,
+            DOB: "",
+            authOUserId: user.sub,
+          });
+          const data = res.data;
+          if (res.status == 201) {
+            console.log(data);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    };
+    registerOrUpdateUser();
+  }, [isAuthenticated, user]);
+
+  const handleRegisterWithAuth = () => {
+    loginWithPopup();
+  };
+
   function handleInput(e) {
     setDetails((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
     });
   }
+
   const handleForm = async (e) => {
     e.preventDefault();
     setstatus("processing");
-    console.log(details);
-    setstatus("sucess");
+    try {
+      const res = await axios.post("http://localhost:8080/register", {
+        email: details.email,
+        name: details.name,
+        password: details.password,
+        DOB: details.birth,
+        authOUserId: "",
+      });
+      const data = res.data;
+      if (res.status == 201) {
+        setstatus("success");
+        console.log(data);
+        setDetails({
+          email: "",
+          name: "",
+          password: "",
+          DOB: "",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      setstatus("failed");
+    }
   };
   return (
     <div className="flex h-fit items-center justify-center bg-gradient-to-tr from-zinc-950 via-zinc-900 to-zinc-700 p-10 text-white">
@@ -80,9 +133,6 @@ const Signup = () => {
           >
             Forgot your password?
           </Button>
-          <button disabled className="bg-green-500">
-            hello
-          </button>
         </form>
         {/* hr tag */}
         <div className="flex items-center justify-center gap-2 ">
@@ -91,7 +141,12 @@ const Signup = () => {
           <hr className="h-px w-60 border-0 bg-gray-600" />
         </div>
         <div className="flex flex-col items-center gap-4">
-          <Button varient="outline" className="w-96" leftIcon={<FcGoogle />}>
+          <Button
+            onClick={handleRegisterWithAuth}
+            varient="outline"
+            className="w-96"
+            leftIcon={<FcGoogle />}
+          >
             Continue with Google
           </Button>{" "}
           <Button

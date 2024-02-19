@@ -6,6 +6,8 @@ import Input from "../components/Input/Input";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { CgSpinnerTwo } from "react-icons/cg";
+import { useAuth0 } from "@auth0/auth0-react";
+import axios from "axios";
 
 const Login = () => {
   const [details, setDetails] = useState({
@@ -13,6 +15,8 @@ const Login = () => {
     password: "",
   });
   const [status, setstatus] = useState("typing");
+  const { loginWithPopup, user } = useAuth0();
+
   function handleInput(e) {
     setDetails((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
@@ -23,16 +27,39 @@ const Login = () => {
     setstatus("processing");
     console.log(details);
     // setstatus("sucess");
+    try {
+      const res = await axios.post("http://localhost/api/login", {
+        email: details.email,
+        password: details.password,
+      });
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+      setstatus("failed");
+    }
+  };
+  console.log(user);
+  const handleGoogleAuth = () => {
+    loginWithPopup({ screen_hint: "signup", connection: "google-oauth2" });
+  };
+  const handleFacebookAuth = () => {
+    loginWithPopup({ screen_hint: "signup", connection: "facebook" });
   };
   return (
     <div className="flex h-screen items-center justify-center bg-gradient-to-tr from-zinc-950 via-zinc-900 to-zinc-700 text-white">
       <div className="flex h-[90vh] w-1/3 flex-col justify-center space-y-10 rounded-lg bg-zinc-800 shadow">
         <h1 className="text-center text-5xl font-bold">Log in to Spotify</h1>
         <div className="flex flex-col items-center gap-4">
-          <Button varient="outline" className="w-96" leftIcon={<FcGoogle />}>
-            Continue with Google
-          </Button>{" "}
           <Button
+            onClick={handleGoogleAuth}
+            varient="outline"
+            className="w-96"
+            leftIcon={<FcGoogle />}
+          >
+            Continue with Google
+          </Button>
+          <Button
+            onClick={handleFacebookAuth}
             varient="outline"
             className="w-96"
             leftIcon={<BiLogoFacebookCircle color="#1778F2" />}
@@ -42,6 +69,7 @@ const Login = () => {
           <Button
             varient="outline"
             className="w-96"
+            // onClick={() => logout()}
             // leftIcon={<BiLogoFacebookCircle color="#1778F2" />}
           >
             Continue with Phone number
