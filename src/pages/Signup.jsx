@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { LuLoader2 } from "react-icons/lu";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
+import useUser from "../hooks/useUser";
 
 const Signup = () => {
   const [details, setDetails] = useState({
@@ -17,6 +18,8 @@ const Signup = () => {
     birth: "",
   });
   const [status, setstatus] = useState("typing");
+  const [error, setError] = useState("");
+  const { login } = useUser();
   const { loginWithPopup, user, isAuthenticated } = useAuth0();
 
   useEffect(() => {
@@ -32,15 +35,16 @@ const Signup = () => {
           });
           const data = res.data;
           if (res.status == 201) {
-            console.log(data);
+            login(data.data);
           }
         } catch (error) {
           console.log(error);
+          setError(error.response.data.error);
         }
       }
     };
     registerOrUpdateUser();
-  }, [isAuthenticated, user]);
+  }, [isAuthenticated, user, login]);
 
   const handleRegisterWithAuth = () => {
     loginWithPopup();
@@ -66,7 +70,7 @@ const Signup = () => {
       const data = res.data;
       if (res.status == 201) {
         setstatus("success");
-        console.log(data);
+        login(data.data);
         setDetails({
           email: "",
           name: "",
@@ -76,6 +80,7 @@ const Signup = () => {
       }
     } catch (error) {
       console.log(error);
+      setError(error.response.data.error);
       setstatus("failed");
     }
   };
@@ -115,6 +120,7 @@ const Signup = () => {
             placeholder={"Date of Birth"}
             text={"date"}
           />
+          {error && <small className="text-red-500">{error}</small>}
           {status === "processing" ? (
             <Button
               leftIcon={<LuLoader2 size={25} className="animate-spin" />}

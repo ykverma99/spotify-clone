@@ -4,10 +4,11 @@ import { FcGoogle } from "react-icons/fc";
 import { BiLogoFacebookCircle } from "react-icons/bi";
 import Input from "../components/Input/Input";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
+import useUser from "../hooks/useUser";
 
 const Login = () => {
   const [details, setDetails] = useState({
@@ -15,7 +16,31 @@ const Login = () => {
     password: "",
   });
   const [status, setstatus] = useState("typing");
-  const { loginWithPopup, user } = useAuth0();
+  const [error, setError] = useState("");
+  const { login } = useUser();
+  const { loginWithPopup, user, isAuthenticated } = useAuth0();
+
+  useEffect(() => {
+    const registerOrUpdateUser = async () => {
+      if (isAuthenticated) {
+        try {
+          const res = await axios.post("http://localhost:8080/login", {
+            email: user.email,
+            password: user.sub,
+            authOUserId: user.sub,
+          });
+          const data = res.data;
+          if (res.status == 200) {
+            login(data.data);
+          }
+        } catch (error) {
+          console.log(error.response);
+          setError(error.response.data.error);
+        }
+      }
+    };
+    registerOrUpdateUser();
+  }, [isAuthenticated, user, login]);
 
   function handleInput(e) {
     setDetails((prev) => {
@@ -25,20 +50,27 @@ const Login = () => {
   const handleForm = async (e) => {
     e.preventDefault();
     setstatus("processing");
-    console.log(details);
-    // setstatus("sucess");
     try {
-      const res = await axios.post("http://localhost/api/login", {
+      const res = await axios.post("http://localhost:8080/login", {
         email: details.email,
         password: details.password,
+        authOUserId: "",
       });
-      console.log(res);
+      const data = res.data;
+      if (res.status == 200) {
+        setstatus("success");
+        login(data.data);
+        setDetails({
+          email: "",
+          password: "",
+        });
+      }
     } catch (error) {
+      setError(error.response.data.error);
       console.log(error);
       setstatus("failed");
     }
   };
-  console.log(user);
   const handleGoogleAuth = () => {
     loginWithPopup({ screen_hint: "signup", connection: "google-oauth2" });
   };
@@ -98,6 +130,7 @@ const Login = () => {
             text={"password"}
             onChange={handleInput}
           />
+          {error && <small className="text-red-500">{error}</small>}
           {status === "processing" ? (
             <Button
               leftIcon={<CgSpinnerTwo size={25} className="animate-spin" />}
@@ -107,8 +140,8 @@ const Login = () => {
               {status}...
             </Button>
           ) : (
-            <Button className="w-96">Sign Up</Button>
-          )}{" "}
+            <Button className="w-96">Log In</Button>
+          )}
           <Button
             as={"a"}
             varient="flat"
