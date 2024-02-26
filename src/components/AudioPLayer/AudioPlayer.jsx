@@ -24,6 +24,7 @@ const AudioPlayer = ({ audioSrc, customCurrentTime, customDuration }) => {
   const handleTimeUpdate = () => {
     setCurrentTime(audioRef.current.currentTime);
     setDuration(audioRef.current.duration);
+    console.log(audioRef);
   };
 
   const handleSeek = (e) => {

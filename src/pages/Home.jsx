@@ -2,18 +2,34 @@ import PlaylistCard from "../components/PlaylistCard/PlaylistCard";
 import SuggestsCards from "../components/SuggestCards/SuggestsCards";
 import CardViews from "../components/views/CardViews";
 import Header from "../components/views/Header";
-import LibraryBox from "../components/views/LibraryBox";
-import PageLinkBox from "../components/views/PageLinkBox";
 import headphones from "../assets/headphones.jpg";
 import singer from "../assets/singer.jpg";
 import { useEffect, useRef, useState } from "react";
-import MusicControll from "../components/views/MusicControll";
+import Layout from "../layout/Layout";
+import { useQuery } from "@tanstack/react-query";
+import {
+  retriveRadomAlbum,
+  retriveRadomSongs,
+  retriveRadomTrack,
+} from "../api/data";
 
 const Home = () => {
   const arr = new Array(6).fill("");
-
   const [navBg, setNavBg] = useState(false);
   const mainRef = useRef(null);
+
+  const { data: randomSongs } = useQuery({
+    queryKey: ["randomSong1"],
+    queryFn: retriveRadomSongs,
+  });
+  const { data: randomAlbum } = useQuery({
+    queryKey: ["randomAlbum1"],
+    queryFn: retriveRadomAlbum,
+  });
+  const { data: randomTrack } = useQuery({
+    queryKey: ["randomTrack1"],
+    queryFn: retriveRadomTrack,
+  });
 
   useEffect(() => {
     const main = mainRef.current;
@@ -29,20 +45,10 @@ const Home = () => {
   }, []);
   const color = Math.random().toString(16).slice(-6);
   return (
-    <div className="grid h-screen grid-cols-5 grid-rows-8 gap-3 overflow-y-hidden bg-black px-5 pt-5">
-      {/* in this sidebar we show theour playlists */}
-      <aside className="col-start-1 col-end-2 row-span-7 space-y-3 rounded-lg text-white">
-        {/* container is used to shift from home to search */}
-        <PageLinkBox />
-
-        {/* this container store the our play lists */}
-        <LibraryBox />
-      </aside>
-
-      {/* main section in which all the content is passed down */}
+    <Layout>
       <main
         ref={mainRef}
-        className="scrollbar-thumb-rounded-full scrollbar-thin scroll-track-rounded-full scrollbar-track-slate-900 scrollbar-thumb-slate-400 col-start-2 col-end-6  row-span-7 overflow-y-auto rounded-lg bg-gray-600 bg-opacity-30"
+        className="scrollbar-thumb-rounded-full scroll-track-rounded-full col-start-2 col-end-6 row-span-7 overflow-y-auto rounded-lg  bg-gray-600 bg-opacity-30 scrollbar-thin scrollbar-track-slate-900 scrollbar-thumb-slate-400"
       >
         <Header bg={navBg && color} />
         {/* <PlaylistComponent /> */}
@@ -64,57 +70,57 @@ const Home = () => {
           gap={"gap-6"}
           heading={"Made for username"}
         >
-          {arr.map((_, i) => {
-            return (
-              <SuggestsCards
-                key={i}
-                src={i % 2 == 0 ? headphones : singer}
-                title={"Daily Mix 1"}
-                desc={"Prabh Gill, Simar Dorraha. Harnoor an..."}
-              />
-            );
-          })}
+          {randomSongs &&
+            randomSongs.data.map((elm) => {
+              return (
+                <SuggestsCards
+                  href={`/playlist/${elm.album ? elm.album.albumName : elm.track.trackName}`}
+                  key={elm._id}
+                  src={elm?.album?.albumImage || elm?.track?.trackImage}
+                  title={elm?.album?.albumName || elm?.track?.trackName}
+                  desc={`${elm.artist.map((val) => val.name)} ${elm.album ? "album" : "track"}`}
+                />
+              );
+            })}
         </CardViews>
         <CardViews
           justify={"justify-start"}
           gap={"gap-6"}
-          heading={"Made for username"}
+          heading={"Top Albums"}
         >
-          {arr.map((_, i) => {
-            return (
-              <SuggestsCards
-                key={i}
-                src={i % 2 == 0 ? headphones : singer}
-                title={"Daily Mix 1"}
-                desc={"Prabh Gill, Simar Dorraha. Harnoor an..."}
-              />
-            );
-          })}
+          {randomAlbum &&
+            randomAlbum.data.map((elm) => {
+              return (
+                <SuggestsCards
+                  key={elm._id}
+                  href={`/playlist/${elm.albumName}`}
+                  src={elm?.albumImage}
+                  title={elm?.albumName}
+                  desc={`${elm.artist.map((val) => val.name)} album ${elm.albumName}`}
+                />
+              );
+            })}
         </CardViews>
         <CardViews
           justify={"justify-start"}
           gap={"gap-6"}
-          heading={"Made for username"}
+          heading={"Top Single Tracks"}
         >
-          {arr.map((_, i) => {
-            return (
-              <SuggestsCards
-                key={i}
-                src={i % 2 == 0 ? headphones : singer}
-                title={"Daily Mix 1"}
-                desc={"Prabh Gill, Simar Dorraha. Harnoor an..."}
-              />
-            );
-          })}
+          {randomTrack &&
+            randomTrack.data.map((elm) => {
+              return (
+                <SuggestsCards
+                  href={`/playlist/${elm.trackName}`}
+                  key={elm._id}
+                  src={elm?.trackImage}
+                  title={elm?.trackName}
+                  desc={`${elm.artist.map((val) => val.name)} track ${elm.trackName}`}
+                />
+              );
+            })}
         </CardViews>
       </main>
-
-      {/* this is the right sidebar and this will only open when a song is playing and we want
-        to show the artist detail */}
-      <aside className="col-start-1 col-end-6 rounded-lg  bg-gray-600 bg-opacity-30">
-        <MusicControll />
-      </aside>
-    </div>
+    </Layout>
   );
 };
 

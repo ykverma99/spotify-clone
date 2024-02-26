@@ -1,8 +1,8 @@
+/* eslint-disable react/prop-types */
 import Text from "../Text/Text";
-import headphones from "../../assets/headphones.jpg";
 import singer from "../../assets/singer.jpg";
 
-const HeaderPlaylist = () => {
+const HeaderPlaylist = ({ image, playlist, artist, name }) => {
   return (
     <div className="flex items-center gap-7 px-5 pt-5 text-white">
       <div
@@ -11,14 +11,14 @@ const HeaderPlaylist = () => {
       >
         <img
           className="h-full w-full rounded object-cover"
-          src={headphones}
-          alt="headphone"
+          src={image}
+          alt={image}
         />
       </div>
       <div className="space-y-3">
-        <Text className="text-sm uppercase tracking-wide">Playlist</Text>
-        <Text as={"h2"} className="text-7xl font-bold">
-          Soulful songs i the wave
+        <Text className="text-sm uppercase tracking-wide">{playlist}</Text>
+        <Text as={"h2"} className="text-7xl font-bold capitalize">
+          {name}
         </Text>
         <Text className="text-sm text-gray-400">
           Forgot about popularity & meaning, just enjoy music vibes from all
@@ -34,7 +34,7 @@ const HeaderPlaylist = () => {
             />
           </div>
           <div className="flex items-center gap-2">
-            <Text className="text-sm">Artist</Text>
+            <Text className="text-sm">{artist}</Text>
             <span className="h-1 w-1 rounded-full bg-white"></span>
             <Text className="text-sm">9 liskes</Text>
             <span className="h-1 w-1 rounded-full bg-white"></span>

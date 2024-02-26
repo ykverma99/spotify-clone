@@ -2,6 +2,7 @@
 import ButtonIcon from "../Button/ButtonIcon";
 import { IoPlay } from "react-icons/io5";
 import { RxCross2 } from "react-icons/rx";
+import { Link } from "react-router-dom";
 
 const defaultStyles =
   "group flex h-72 w-52 cursor-pointer flex-col items-center gap-3 rounded-md bg-white/5 p-3 backdrop-blur hover:bg-white/15";
@@ -12,10 +13,10 @@ const varients = {
 };
 
 /* eslint-disable react/prop-types */
-const SuggestsCards = ({ src, title, desc, isCross, size = "base" }) => {
+const SuggestsCards = ({ src, title, desc, isCross, href, size = "base" }) => {
   return (
-    <div className={`${defaultStyles} ${varients[size]}`}>
-      <div className="relative h-3/4 w-full rounded-md ">
+    <Link to={href} className={`${defaultStyles} ${varients[size]}`}>
+      <div className="relative h-3/4 w-full rounded-md">
         {isCross && (
           <div
             className={`ease invisible absolute right-2 top-2 transition-all duration-200 ease-in group-hover:visible group-hover:bottom-2`}
@@ -44,11 +45,11 @@ const SuggestsCards = ({ src, title, desc, isCross, size = "base" }) => {
           {/* <IoPlay color="black" size={25} /> */}
         </div>
       </div>
-      <div>
+      <div className="h-1/4 w-full">
         <p className="text-lg font-semibold text-white">{title}</p>
         <p className="text-sm text-gray-500">{desc}</p>
       </div>
-    </div>
+    </Link>
   );
 };
 

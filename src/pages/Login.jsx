@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/no-unescaped-entities */
 import Button from "../components/Button/Button";
 import { FcGoogle } from "react-icons/fc";
@@ -18,11 +19,12 @@ const Login = () => {
   const [status, setstatus] = useState("typing");
   const [error, setError] = useState("");
   const { login } = useUser();
-  const { loginWithPopup, user, isAuthenticated } = useAuth0();
+  const { loginWithPopup, user, isAuthenticated, logout } = useAuth0();
 
   useEffect(() => {
     const registerOrUpdateUser = async () => {
       if (isAuthenticated) {
+        console.log(user.email);
         try {
           const res = await axios.post("http://localhost:8080/login", {
             email: user.email,
@@ -40,8 +42,7 @@ const Login = () => {
       }
     };
     registerOrUpdateUser();
-  }, [isAuthenticated, user, login]);
-
+  }, [isAuthenticated, user]);
   function handleInput(e) {
     setDetails((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
@@ -78,8 +79,8 @@ const Login = () => {
     loginWithPopup({ screen_hint: "signup", connection: "facebook" });
   };
   return (
-    <div className="flex h-screen items-center justify-center bg-gradient-to-tr from-zinc-950 via-zinc-900 to-zinc-700 text-white">
-      <div className="flex h-[90vh] w-1/3 flex-col justify-center space-y-10 rounded-lg bg-zinc-800 shadow">
+    <div className="flex items-center justify-center bg-gradient-to-tr from-zinc-950 via-zinc-900 to-zinc-700 p-20 text-white">
+      <div className="flex w-1/3 flex-col justify-center space-y-10 rounded-lg bg-zinc-800 py-20 shadow">
         <h1 className="text-center text-5xl font-bold">Log in to Spotify</h1>
         <div className="flex flex-col items-center gap-4">
           <Button
@@ -101,7 +102,7 @@ const Login = () => {
           <Button
             varient="outline"
             className="w-96"
-            // onClick={() => logout()}
+            onClick={() => logout()}
             // leftIcon={<BiLogoFacebookCircle color="#1778F2" />}
           >
             Continue with Phone number

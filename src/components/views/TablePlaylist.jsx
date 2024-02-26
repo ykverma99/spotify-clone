@@ -1,13 +1,10 @@
-/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/prop-types */
 import ButtonIcon from "../Button/ButtonIcon";
 import { IoPlay } from "react-icons/io5";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { CiClock2 } from "react-icons/ci";
-import Headphones from "../../assets/headphones.jpg";
-import TableBody from "../TableBody/TableBody";
 
-const arr = new Array(100).fill("");
-const TablePlaylist = () => {
+const TablePlaylist = ({ children }) => {
   return (
     <div className="min-h-[26rem] bg-black/30 p-5">
       <div className="inline-flex items-center gap-3 pb-4">
@@ -38,20 +35,21 @@ const TablePlaylist = () => {
           </tr>
         </thead>
         <tbody className="border-collapse text-gray-400">
-          {arr.map((_, i) => {
+          {/* {songs.map((elm, i) => {
             return (
               <TableBody
-                title={"Dhundle Dhundle"}
-                name={"Singer"}
-                src={Headphones}
-                album={"Album"}
+                title={elm.song}
+                name={elm.artist[0].name}
+                src={elm.artist[0].album[0].albumImage}
+                album={elm.artist[0].album[0].albumName}
                 time={"3:59"}
                 date={"5 days"}
                 key={i}
                 index={i + 1}
               />
             );
-          })}
+          })} */}
+          {children}
         </tbody>
       </table>
     </div>
