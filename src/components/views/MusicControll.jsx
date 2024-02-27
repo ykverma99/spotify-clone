@@ -1,7 +1,7 @@
 import Singer from "../../assets/singer.jpg";
 import SongCard from "../SongCard/SongCard";
 import AudioPlayer from "../AudioPLayer/AudioPlayer";
-import audioSrc from "../../assets/haaniya.mp3";
+// import audioSrc from "../../assets/haaniya.mp3";
 import ButtonIcon from "../Button/ButtonIcon";
 import { RiVideoLine } from "react-icons/ri";
 import { HiOutlineQueueList } from "react-icons/hi2";
@@ -26,7 +26,7 @@ const MusicControll = () => {
         isHover={false}
       />
       <AudioPlayer
-        audioSrc={audioSrc}
+        audioSrc={""}
         title={"Ve Haaniya"}
         customCurrentTime={customCurrentTime}
         customDuration={customDuration}

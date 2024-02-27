@@ -5,6 +5,14 @@ export const retriveRadomSongs = async () => {
   const res = await axios.get(`http://localhost:8080/song?random=true`);
   return res.data;
 };
+export const retriveAllSongs = async () => {
+  const res = await axios.get(`http://localhost:8080/song`);
+  return res.data;
+};
+export const retriveAllAlbum = async () => {
+  const res = await axios.get(`http://localhost:8080/album`);
+  return res.data;
+};
 
 export const retriveRadomAlbum = async () => {
   const res = await axios.get(`http://localhost:8080/album?random=true`);

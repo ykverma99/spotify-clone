@@ -14,7 +14,7 @@ import {
 } from "../api/data";
 
 const Home = () => {
-  const arr = new Array(6).fill("");
+  const arr = new Array(5).fill("");
   const [navBg, setNavBg] = useState(false);
   const mainRef = useRef(null);
 
@@ -53,6 +53,11 @@ const Home = () => {
         <Header bg={navBg && color} />
         {/* <PlaylistComponent /> */}
         <CardViews heading={"Good Evening"}>
+          <PlaylistCard
+            href={"/playlist"}
+            text={"Liked Songs"}
+            src={headphones}
+          />
           {arr.map((_, i) => {
             return (
               <PlaylistCard
