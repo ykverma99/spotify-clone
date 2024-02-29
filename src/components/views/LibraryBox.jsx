@@ -1,4 +1,4 @@
-import { TbCards } from "react-icons/tb";
+import { TbCards, TbMusicHeart } from "react-icons/tb";
 import { IoAdd } from "react-icons/io5";
 import { IoMdArrowForward } from "react-icons/io";
 import Text from "../Text/Text";
@@ -6,10 +6,10 @@ import Button from "../Button/Button";
 import { IoIosSearch } from "react-icons/io";
 import { TfiMenuAlt } from "react-icons/tfi";
 import SongCard from "../SongCard/SongCard";
-import headphones from "../../assets/headphones.jpg";
+import useUser from "../../hooks/useUser";
 
 const LibraryBox = () => {
-  const arr = new Array(5).fill();
+  const { user } = useUser();
   return (
     <div className="h-[72.7vh] space-y-4 rounded-lg bg-gray-600 bg-opacity-30 p-5">
       <div className="flex justify-between">
@@ -40,14 +40,22 @@ const LibraryBox = () => {
 
       {/* playlistss */}
       <div>
-        {arr.map((_, i) => {
+        {user.playlist.map((elm) => {
           return (
             <SongCard
-              title={"liked song"}
-              name={"playlist"}
-              option={"150 songs"}
-              src={headphones}
-              key={i}
+              href={`/playlist/${elm._id}`}
+              title={elm.playlistName}
+              name={elm.madeBy}
+              option={
+                elm.songs.length > 0
+                  ? `${elm.songs?.length} songs`
+                  : elm.album
+                    ? elm.album?.albumName
+                    : elm.track?.trackName
+              }
+              iconLiked={elm.songs.length > 0 && <TbMusicHeart size={25} />}
+              src={elm?.album ? elm.album?.albumImage : elm.track?.trackImage}
+              key={elm._id}
             />
           );
         })}

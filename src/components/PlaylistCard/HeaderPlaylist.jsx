@@ -2,18 +2,24 @@
 import Text from "../Text/Text";
 import singer from "../../assets/singer.jpg";
 
-const HeaderPlaylist = ({ image, playlist, artist, name }) => {
+const HeaderPlaylist = ({ image, playlist, artist, name, iconLiked }) => {
   return (
     <div className="flex items-center gap-7 px-5 pt-5 text-white">
       <div
         className="h-52 w-52 rounded"
         style={{ boxShadow: "0 0 16px 8px rgba(0,0,0,0.5)" }}
       >
-        <img
-          className="h-full w-full rounded object-cover"
-          src={image}
-          alt={image}
-        />
+        {image ? (
+          <img
+            className="h-full w-full rounded object-cover"
+            src={image}
+            alt={image}
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center rounded bg-purple-400">
+            {iconLiked}
+          </div>
+        )}
       </div>
       <div className="space-y-3">
         <Text className="text-sm uppercase tracking-wide">{playlist}</Text>

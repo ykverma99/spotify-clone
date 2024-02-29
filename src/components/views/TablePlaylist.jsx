@@ -3,8 +3,10 @@ import ButtonIcon from "../Button/ButtonIcon";
 import { IoPlay } from "react-icons/io5";
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { CiClock2 } from "react-icons/ci";
+import { BiPlusCircle } from "react-icons/bi";
+import { PiSealCheckFill } from "react-icons/pi";
 
-const TablePlaylist = ({ children }) => {
+const TablePlaylist = ({ children, liked, likedClick }) => {
   return (
     <div className="min-h-[26rem] bg-black/30 p-5">
       <div className="inline-flex items-center gap-3 pb-4">
@@ -12,7 +14,18 @@ const TablePlaylist = ({ children }) => {
         <ButtonIcon
           varient="flat"
           icon={<BiDotsHorizontalRounded color="white" size={30} />}
-        />
+        />{" "}
+        <span className="cursor-pointer">
+          {!liked ? (
+            <BiPlusCircle color="white" onClick={likedClick} size={25} />
+          ) : (
+            <PiSealCheckFill
+              color="limegreen"
+              // onClick={toggleClick}
+              size={25}
+            />
+          )}
+        </span>
       </div>
       <table className="w-full text-left text-gray-400">
         <thead className="capitalize">

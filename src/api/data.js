@@ -32,3 +32,23 @@ export const retriveRadomTrack = async () => {
   const res = await axios.get(`http://localhost:8080/track?random=true`);
   return res.data;
 };
+
+export const singleUser = async (user) => {
+  const res = await axios.get(`http://localhost:8080/user/${user}`);
+  return res.data;
+};
+
+export const singlePlaylist = async (playlist) => {
+  const res = await axios.get(`http://localhost:8080/playlist/${playlist}`);
+  return res.data;
+};
+
+export const singleSong = async (name) => {
+  const res = await axios.get(`http://localhost:8080/song/${name}`);
+  return res.data;
+};
+
+export const postPlaylist = async (data) => {
+  const res = await axios.post(`http://localhost:8080/playlist`, data);
+  return res.data;
+};

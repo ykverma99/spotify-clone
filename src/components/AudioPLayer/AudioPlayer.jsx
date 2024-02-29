@@ -1,17 +1,41 @@
 /* eslint-disable react/prop-types */
 // AudioPlayer.js
-import { useState, useRef } from "react";
+// import { useState, useRef } from "react";
 import { IoPlay, IoPause } from "react-icons/io5";
 import ButtonIcon from "../Button/ButtonIcon";
 import { MdSkipNext, MdSkipPrevious } from "react-icons/md";
 import Text from "../Text/Text";
 import RangeSlider from "../views/RangeSlider";
+import useAudio from "../../hooks/useAudio";
+import useAudioSrc from "../../hooks/useAudioSrc";
+import { useEffect } from "react";
 
-const AudioPlayer = ({ audioSrc, customCurrentTime, customDuration }) => {
-  const audioRef = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
+const AudioPlayer = ({ customCurrentTime, customDuration }) => {
+  // const audioRef = useRef(null);
+  // const [isPlaying, setIsPlaying] = useState(false);
+  // const [currentTime, setCurrentTime] = useState(0);
+  // const [duration, setDuration] = useState(0);
+  const {
+    isPlaying,
+    audioRef,
+    setIsPlaying,
+    setCurrentTime,
+    setDuration,
+    duration,
+    currentTime,
+  } = useAudio();
+
+  const { audioSrc } = useAudioSrc();
+  useEffect(() => {
+    if (audioSrc.length) {
+      audioRef.current.play();
+      setIsPlaying(true);
+    }
+    // else {
+    // audioRef.current.play();
+    // }
+    // setIsPlaying(true);
+  }, [audioSrc, audioRef, setIsPlaying]);
   const handlePlayPause = () => {
     if (isPlaying) {
       audioRef.current.pause();
@@ -23,8 +47,10 @@ const AudioPlayer = ({ audioSrc, customCurrentTime, customDuration }) => {
 
   const handleTimeUpdate = () => {
     setCurrentTime(audioRef.current.currentTime);
-    setDuration(audioRef.current.duration);
-    console.log(audioRef);
+    const newDuration = audioRef.current.duration;
+    if (!isNaN(newDuration) && typeof newDuration === "number") {
+      setDuration(newDuration);
+    }
   };
 
   const handleSeek = (e) => {
@@ -71,7 +97,7 @@ const AudioPlayer = ({ audioSrc, customCurrentTime, customDuration }) => {
         </Text>
         <RangeSlider
           currentTime={currentTime}
-          duration={duration}
+          duration={typeof duration === "number" ? duration : 0}
           handleSeek={handleSeek}
         />
         <Text>

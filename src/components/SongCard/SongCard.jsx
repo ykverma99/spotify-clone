@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Text from "../Text/Text";
 
 /* eslint-disable react/prop-types */
@@ -14,19 +15,28 @@ const SongCard = ({
   option,
   isHover = true,
   size = "md",
+  iconLiked,
+  href,
   ...extraprops
 }) => {
   return (
-    <div
+    <Link
+      to={href}
       {...extraprops}
       className={`ease my-3 flex cursor-pointer items-center gap-3 rounded-md p-1 transition-all  duration-200 ease-in ${isHover ? "hover:bg-gray-600 hover:bg-opacity-40 " : ""}`}
     >
-      <div className={`${sizeImg[size]} rounded-md bg-gray-50`}>
-        <img
-          className="h-full w-full rounded-md object-cover"
-          src={src}
-          alt={src}
-        />
+      <div className={`${sizeImg[size]} rounded-md`}>
+        {src ? (
+          <img
+            className="h-full w-full rounded-md object-cover"
+            src={src}
+            alt={src}
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center bg-purple-400">
+            {iconLiked}
+          </div>
+        )}
       </div>
       <div className="capitalize">
         <Text className="font-medium tracking-wide text-white">{title}</Text>
@@ -39,7 +49,7 @@ const SongCard = ({
           <Text varient="hoverline">{option}</Text>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

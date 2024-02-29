@@ -12,12 +12,14 @@ import {
   retriveRadomSongs,
   retriveRadomTrack,
 } from "../api/data";
+import useUser from "../hooks/useUser";
+import { TbMusicHeart } from "react-icons/tb";
 
 const Home = () => {
   const arr = new Array(5).fill("");
   const [navBg, setNavBg] = useState(false);
   const mainRef = useRef(null);
-
+  const { user } = useUser();
   const { data: randomSongs } = useQuery({
     queryKey: ["randomSong1"],
     queryFn: retriveRadomSongs,
@@ -54,9 +56,10 @@ const Home = () => {
         {/* <PlaylistComponent /> */}
         <CardViews heading={"Good Evening"}>
           <PlaylistCard
-            href={"/playlist"}
-            text={"Liked Songs"}
-            src={headphones}
+            href={`/playlist/${user?.playlist[0]._id}`}
+            text={user?.playlist[0].playlistName}
+            // src={headphones}
+            icon={<TbMusicHeart size={25} />}
           />
           {arr.map((_, i) => {
             return (
