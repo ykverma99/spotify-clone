@@ -21,7 +21,8 @@ const Playlist = () => {
   const [toggle, settoggle] = useState(false);
   const [like, setlike] = useState(false);
   const { user, login } = useUser();
-  const { setAudioSrc, setAudioDetail } = useAudioSrc();
+  const { setAudioSrc, setAudioDetail, setnextAudio, setprevAudio } =
+    useAudioSrc();
   const { name } = useParams();
   const { data: album, isLoading: isAlbum } = useQuery({
     queryKey: ["albumData", name],
@@ -79,9 +80,11 @@ const Playlist = () => {
       console.log(error.response);
     }
   };
-  const handleAudioSrcChange = (newAudioSrc, details) => {
+  const handleAudioSrcChange = (newAudioSrc, details, prev, next) => {
     setAudioSrc(newAudioSrc);
     setAudioDetail(details);
+    setprevAudio(prev);
+    setnextAudio(next);
   };
   return (
     <Layout>
@@ -100,13 +103,17 @@ const Playlist = () => {
                 artist={album.data[0]?.artist.map((val) => val.name)}
               />
               <TablePlaylist liked={like} likedClick={handlePlaylist}>
-                {album.data[0]?.songs.map((elm, i) => {
+                {album.data[0]?.songs.map((elm, i, array) => {
+                  const prev = i > 0 ? array[i - 1] : null;
+                  const next = i < array.length - 1 ? array[i + 1] : null;
                   return (
                     <TableBody
                       onClick={() =>
                         handleAudioSrcChange(
                           elm?.songUrl.toString(),
                           elm?.songName,
+                          prev,
+                          next,
                         )
                       }
                       title={elm.songName}
@@ -138,6 +145,8 @@ const Playlist = () => {
                     handleAudioSrcChange(
                       track.data[0]?.songs.songUrl.toString(),
                       track.data[0]?.songs.songName,
+                      track.data[0]?.songs.songUrl,
+                      track.data[0]?.songs.songUrl,
                     )
                   }
                   title={track.data[0]?.songs.songName}
@@ -172,13 +181,17 @@ const Playlist = () => {
                 />
                 <TablePlaylist>
                   {playlist.data.songs.length > 0 ? (
-                    playlist.data?.songs.map((elm, i) => {
+                    playlist.data?.songs.map((elm, i, array) => {
+                      const prev = i > 0 ? array[i - 1] : null;
+                      const next = i < array.length - 1 ? array[i + 1] : null;
                       return (
                         <TableBody
                           onClick={() =>
                             handleAudioSrcChange(
                               elm?.songUrl.toString(),
                               elm?.songName,
+                              prev,
+                              next,
                             )
                           }
                           title={elm.songName}
@@ -208,6 +221,8 @@ const Playlist = () => {
                         handleAudioSrcChange(
                           playlist.data?.track?.songs.songUrl.toString(),
                           playlist.data?.track?.songs.songName,
+                          playlist.data?.track?.songs,
+                          playlist.data?.track?.songs,
                         )
                       }
                       title={playlist.data.track.trackName}
@@ -222,13 +237,17 @@ const Playlist = () => {
                       // toggleClick={() => handleLike(elm)}
                     />
                   ) : (
-                    playlist.data?.album.songs.map((elm, i) => {
+                    playlist.data?.album.songs.map((elm, i, array) => {
+                      const prev = i > 0 ? array[i - 1] : null;
+                      const next = i < array.length - 1 ? array[i + 1] : null;
                       return (
                         <TableBody
                           onClick={() =>
                             handleAudioSrcChange(
                               elm?.songUrl.toString(),
                               elm?.songName,
+                              prev,
+                              next,
                             )
                           }
                           title={elm.songName}

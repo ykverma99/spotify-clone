@@ -25,7 +25,8 @@ const AudioPlayer = ({ customCurrentTime, customDuration }) => {
     currentTime,
   } = useAudio();
 
-  const { audioSrc } = useAudioSrc();
+  const { audioSrc, nextAudio, prevAudio, setAudioSrc, setAudioDetail } =
+    useAudioSrc();
   useEffect(() => {
     if (audioSrc.length) {
       audioRef.current.play();
@@ -59,6 +60,15 @@ const AudioPlayer = ({ customCurrentTime, customDuration }) => {
     setCurrentTime(seekTime);
   };
 
+  const handlePrevSong = () => {
+    setAudioSrc(prevAudio?.songUrl);
+    setAudioDetail(prevAudio?.songName);
+  };
+  const handleNextSong = () => {
+    setAudioSrc(nextAudio?.songUrl);
+    setAudioDetail(nextAudio?.songName);
+  };
+
   return (
     <div className="flex flex-col items-center justify-center">
       <audio
@@ -74,6 +84,7 @@ const AudioPlayer = ({ customCurrentTime, customDuration }) => {
           icon={<MdSkipPrevious size={30} />}
           varient="flat"
           size="sm"
+          onClick={handlePrevSong}
         />
         <ButtonIcon
           bg={"white"}
@@ -87,6 +98,7 @@ const AudioPlayer = ({ customCurrentTime, customDuration }) => {
           icon={<MdSkipNext size={30} />}
           varient="flat"
           size="sm"
+          onClick={handleNextSong}
         />
       </div>
       <div className="flex items-center gap-2 text-gray-300">

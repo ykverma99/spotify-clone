@@ -13,7 +13,6 @@ import { singleSong } from "../../api/data";
 const MusicControll = () => {
   const [volume, setVolume] = useState(100);
   const { audioDetail } = useAudioSrc();
-
   const { data: song } = useQuery({
     queryKey: ["songDetail", audioDetail],
     queryFn: () => singleSong(audioDetail),
