@@ -26,7 +26,7 @@ const Login = () => {
       if (isAuthenticated) {
         console.log(user.email);
         try {
-          const res = await axios.post("http://localhost:8080/login", {
+          const res = await axios.post(`${import.meta.env.VITE_API}/login`, {
             email: user.email,
             password: user.sub,
             authOUserId: user.sub,
@@ -52,7 +52,7 @@ const Login = () => {
     e.preventDefault();
     setstatus("processing");
     try {
-      const res = await axios.post("http://localhost:8080/login", {
+      const res = await axios.post(`${import.meta.env.VITE_API}/login`, {
         email: details.email,
         password: details.password,
         authOUserId: "",

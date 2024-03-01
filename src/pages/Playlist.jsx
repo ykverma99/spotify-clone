@@ -47,13 +47,13 @@ const Playlist = () => {
         songs: [val._id],
       };
       const res = await axios.patch(
-        `http://localhost:8080/playlist/${user.playlist[0]?._id}`,
+        `${import.meta.env.VITE_API}/${user.playlist[0]?._id}`,
         data,
       );
       if (res.status == 200) {
         try {
           const getUser = await axios.get(
-            `http://localhost:8080/user/${user._id}`,
+            `${import.meta.env.VITE_API}/user/${user._id}`,
           );
           login(getUser.data.data);
         } catch (error) {
@@ -74,7 +74,10 @@ const Playlist = () => {
         track: track.data[0]?._id || null,
         album: album.data[0]?._id || null,
       };
-      const res = await axios.post(`http://localhost:8080/playlist`, data);
+      const res = await axios.post(
+        `${import.meta.env.VITE_API}/playlist`,
+        data,
+      );
       login(res.data.data);
     } catch (error) {
       console.log(error.response);

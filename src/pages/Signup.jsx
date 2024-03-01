@@ -26,7 +26,7 @@ const Signup = () => {
     const registerOrUpdateUser = async () => {
       if (isAuthenticated) {
         try {
-          const res = await axios.post("http://localhost:8080/register", {
+          const res = await axios.post(`${import.meta.env.VITE_API}/register`, {
             email: user.email,
             name: user.name,
             password: user.sub,
@@ -60,7 +60,7 @@ const Signup = () => {
     e.preventDefault();
     setstatus("processing");
     try {
-      const res = await axios.post("http://localhost:8080/register", {
+      const res = await axios.post(`${import.meta.env.VITE_API}/register`, {
         email: details.email,
         name: details.name,
         password: details.password,
